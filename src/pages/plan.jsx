@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import Header from "../components/header"
 import Footer from "../components/Footer"
@@ -30,7 +30,6 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
         className="bg-white w-full max-w-lg h-full overflow-y-auto shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="bg-amber-900 text-white p-5 flex justify-between items-start">
           <div>
             <h2 className="text-xl font-bold">Create New RCS Tenant</h2>
@@ -43,9 +42,7 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
           </button>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6">
-          {/* BotAgent */}
+        <div className="p-6">
           <div className="mb-5">
             <label className="block text-xs font-semibold text-gray-700 mb-2">BotAgent</label>
             <div className="flex gap-4">
@@ -74,7 +71,6 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
             </div>
           </div>
 
-          {/* Brand */}
           <div className="mb-5">
             <label className="block text-xs font-semibold text-gray-700 mb-2">
               Brand <span className="text-red-500">*</span>
@@ -92,7 +88,6 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
             </select>
           </div>
 
-          {/* Agent Name */}
           <div className="mb-5">
             <label className="block text-xs font-semibold text-gray-700 mb-2">
               Agent Name <span className="text-red-500">*</span>
@@ -108,7 +103,6 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
             <p className="text-xs text-gray-500 mt-1">40 characters left</p>
           </div>
 
-          {/* Logo and Banner */}
           <div className="grid grid-cols-2 gap-4 mb-5">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-2">
@@ -136,7 +130,6 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
             </div>
           </div>
 
-          {/* Email Address */}
           <div className="mb-5">
             <label className="block text-xs font-semibold text-gray-700 mb-2">
               Email Address <span className="text-red-500">*</span>
@@ -151,7 +144,6 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
             />
           </div>
 
-          {/* Hosting Region and Billing Category */}
           <div className="grid grid-cols-2 gap-4 mb-5">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-2">
@@ -189,7 +181,6 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
             </div>
           </div>
 
-          {/* Use Case */}
           <div className="mb-5">
             <label className="block text-xs font-semibold text-gray-700 mb-2">
               Use Case <span className="text-red-500">*</span>
@@ -209,12 +200,10 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
             <p className="text-xs text-gray-500 mt-1">Can't change later</p>
           </div>
 
-          {/* Terms */}
           <p className="text-xs text-gray-600 mb-5">
             By clicking "Next", you agree to the <a href="#" className="text-amber-800 hover:underline">Terms of Service</a>.
           </p>
 
-          {/* Buttons */}
           <div className="flex justify-end items-center gap-3">
             <button
               type="button"
@@ -224,7 +213,8 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
               Cancel
             </button>
             <button
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
               className="px-6 py-2 text-sm bg-amber-800 text-white rounded-md font-medium hover:bg-amber-900 transition-colors flex items-center gap-2"
             >
               Next: Choose Plan
@@ -233,7 +223,7 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
               </svg>
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
@@ -244,31 +234,92 @@ export default function PlansPage() {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [billingCycle, setBillingCycle] = useState('Monthly');
   const [planType, setPlanType] = useState('All Plans');
+  const [plans, setPlans] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const allPlans = [
-    { id: 1, name: "A2p", price: "$1", period: "/month", description: "this is dec" },
-    { id: 2, name: "aNew Plan", price: "$5", period: "/month", description: "a" },
-    { id: 3, name: "aplan", price: "$3", period: "/month", description: "a plana ok ok" },
-    { id: 4, name: "aSDSdsadsa", price: "$1111", period: "/month", description: "sdadaSD" },
-    { id: 5, name: "ashish test", price: "$3", period: "/month", description: "aa" },
-    { id: 6, name: "basic info onetest", price: "$0", period: "/month", description: "this" },
-    { id: 7, name: "basic info plan comp", price: "$1", period: "/month", description: "this is" },
-    { id: 8, name: "Basic Inform NePlan", price: "$4", period: "/month", description: "Basic Information" },
-    { id: 9, name: "Basic Plan", price: "$167.66", period: "/month", description: "Perfect for individuals and small teams getting started." },
-    { id: 10, name: "New Planaaaa", price: "$2.04", period: "/month", description: "hhhhh" },
-    { id: 11, name: "New Planok", price: "$0", period: "/month", description: "hjj" },
-    { id: 12, name: "plan billing page", price: "$6", period: "/month", description: "this is billing" },
-    { id: 13, name: "plan components one", price: "$6", period: "/month", description: "plan components one" },
-    { id: 14, name: "preview testing", price: "$7", period: "/month", description: "this" },
-    { id: 15, name: "rome plan", price: "$3", period: "/month", description: "this is" },
-    { id: 16, name: "testing 101", price: "$11233", period: "/month", description: "this is description" },
-    { id: 17, name: "testing 3", price: "$59.36", period: "/month", description: "this is des" },
-    { id: 18, name: "testings one", price: "$1553.58", period: "/month", description: "this is description" },
-    { id: 19, name: "testings two", price: "$108.75", period: "/month", description: "this is description" },
-    { id: 20, name: "testinh ashish 01", price: "$20", period: "/month", description: "kk" },
-  ];
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const authToken = localStorage.getItem('authToken');
+        
+        const response = await fetch('https://localhost:53718/api/Plan/GetPlanList', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${authToken}`,
+          },
+          credentials: 'include',
+          body: JSON.stringify({}),
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch plans: ${response.status} ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        
+        let formattedPlans = [];
+        
+        if (data.Entities && Array.isArray(data.Entities)) {
+          formattedPlans = data.Entities.map(plan => ({
+            id: plan.PlanId || plan.Id,
+            name: plan.PlanName || plan.Name,
+            price: plan.Price || plan.BasePrice || plan.DisplayPrice || 0,
+            period: `/${plan.BillingCycle || 'month'}`,
+            description: plan.Description || 'No description available',
+            type: plan.Type || 'general',
+            billingCycle: plan.BillingCycle || 'Monthly',
+            features: plan.Features || '',
+            status: plan.Status
+          }));
+        } else if (Array.isArray(data)) {
+          formattedPlans = data.map(plan => ({
+            id: plan.PlanId || plan.Id,
+            name: plan.PlanName || plan.Name,
+            price: plan.Price || plan.BasePrice || plan.DisplayPrice || 0,
+            period: `/${plan.BillingCycle || 'month'}`,
+            description: plan.Description || 'No description available',
+            type: plan.Type || 'general',
+            billingCycle: plan.BillingCycle || 'Monthly',
+            features: plan.Features || '',
+            status: plan.Status
+          }));
+        }
+        
+        setPlans(formattedPlans);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching plans:', err);
+        setError(err.message || 'Failed to load plans. Please try again.');
+        setPlans([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
+  const filteredPlans = plans.filter(plan => {
+    if (planType !== 'All Plans') {
+      if (plan.type?.toLowerCase() !== planType.toLowerCase()) {
+        return false;
+      }
+    }
+    
+    if (plan.billingCycle && plan.billingCycle !== billingCycle) {
+      return false;
+    }
+    
+    return true;
+  });
 
   const handleSelectPlan = (plan) => {
+    if (!plan) return;
     setSelectedPlan(plan);
     setShowTenantForm(true);
   };
@@ -277,12 +328,15 @@ export default function PlansPage() {
     console.log('Form submitted with plan:', selectedPlan, 'and data:', formData);
     setShowTenantForm(false);
     setSelectedPlan(null);
-    // Add your logic here to handle the final submission
   };
 
   const handleFormBack = () => {
     setShowTenantForm(false);
     setSelectedPlan(null);
+  };
+
+  const handleRetry = () => {
+    window.location.reload();
   };
 
   return (
@@ -308,13 +362,11 @@ export default function PlansPage() {
         <div className="min-h-screen">
           <main className="px-6 py-12 md:px-8 lg:px-12">
             <div className="max-w-7xl mx-auto">
-              {/* Page Header */}
               <div className="mb-8">
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">Add New Plan</h1>
                 <p className="text-gray-600">Select a subscription plan to add to this tenant</p>
               </div>
 
-              {/* Billing Cycle Toggle */}
               <div className="mb-8">
                 <label className="block text-sm font-semibold text-gray-700 mb-3">Billing Cycle</label>
                 <div className="flex gap-2">
@@ -342,7 +394,6 @@ export default function PlansPage() {
                 </div>
               </div>
 
-              {/* Plan Type Filter */}
               <div className="mb-8 flex justify-end gap-2">
                 <button
                   onClick={() => setPlanType('All Plans')}
@@ -376,55 +427,121 @@ export default function PlansPage() {
                 </button>
               </div>
 
-              {/* Plans Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                {allPlans.map((plan) => (
-                  <div
-                    key={plan.id}
-                    onClick={() => setSelectedPlan(plan)}
-                    className={`bg-white border rounded-lg p-5 cursor-pointer transition-all ${
-                      selectedPlan?.id === plan.id
-                        ? 'border-amber-800 shadow-lg ring-2 ring-amber-800'
-                        : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
+              {loading && (
+                <div className="text-center py-12">
+                  <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-gray-300 border-t-amber-800"></div>
+                  <p className="mt-4 text-gray-600">Loading plans...</p>
+                </div>
+              )}
+
+              {error && !loading && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div className="flex-1">
+                      <h3 className="text-red-800 font-semibold mb-2">Error Loading Plans</h3>
+                      <p className="text-red-600 text-sm mb-3">{error}</p>
+                      <p className="text-red-600 text-xs mb-4">
+                        If you're seeing a CORS or network error, make sure:
+                        <br />The API server is running
+                        <br />CORS is configured on the backend
+                        <br />The SSL certificate is trusted for HTTPS
+                      </p>
+                      <button
+                        onClick={handleRetry}
+                        className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors text-sm font-medium"
+                      >
+                        Retry
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {!loading && !error && filteredPlans.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                  {filteredPlans.map((plan) => (
+                    <div
+                      key={plan.id}
+                      onClick={() => setSelectedPlan(plan)}
+                      className={`bg-white border rounded-lg p-5 cursor-pointer transition-all ${
+                        selectedPlan?.id === plan.id
+                          ? 'border-amber-800 shadow-lg ring-2 ring-amber-800'
+                          : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
+                      }`}
+                    >
+                      <h3 className="font-bold text-gray-900 mb-2 text-lg">{plan.name}</h3>
+                      <div className="mb-3">
+                        <span className="text-2xl font-bold text-gray-900">INR {plan.price}</span>
+                        <span className="text-gray-600 text-sm">{plan.period}</span>
+                      </div>
+                      <p className="text-gray-600 text-sm mb-3">{plan.description}</p>
+                      {plan.features && (
+                        <p className="text-gray-500 text-xs">{plan.features}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {!loading && !error && plans.length > 0 && filteredPlans.length === 0 && (
+                <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
+                  <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  </svg>
+                  <h3 className="mt-4 text-lg font-semibold text-gray-900">No Plans Match Your Filters</h3>
+                  <p className="mt-2 text-gray-500">Try selecting different billing cycle or plan type.</p>
+                  <button
+                    onClick={() => {
+                      setPlanType('All Plans');
+                      setBillingCycle('Monthly');
+                    }}
+                    className="mt-4 px-4 py-2 bg-amber-800 text-white rounded-md hover:bg-amber-900 transition-colors text-sm"
+                  >
+                    Reset Filters
+                  </button>
+                </div>
+              )}
+
+              {!loading && !error && plans.length === 0 && (
+                <div className="text-center py-12 bg-white rounded-lg border border-gray-200">
+                  <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                  </svg>
+                  <h3 className="mt-4 text-lg font-semibold text-gray-900">No Plans Available</h3>
+                  <p className="mt-2 text-gray-500">There are no plans to display at the moment.</p>
+                </div>
+              )}
+
+              {!loading && filteredPlans.length > 0 && (
+                <div className="flex justify-end gap-3 sticky bottom-6">
+                  <button
+                    onClick={() => window.history.back()}
+                    className="px-8 py-3 bg-white border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => handleSelectPlan(selectedPlan)}
+                    disabled={!selectedPlan}
+                    className={`px-8 py-3 rounded-md font-medium transition-colors ${
+                      selectedPlan
+                        ? 'bg-amber-800 text-white hover:bg-amber-900 shadow-lg'
+                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     }`}
                   >
-                    <h3 className="font-bold text-gray-900 mb-2 text-lg">{plan.name}</h3>
-                    <div className="mb-3">
-                      <span className="text-2xl font-bold text-gray-900">{plan.price}</span>
-                      <span className="text-gray-600 text-sm">{plan.period}</span>
-                    </div>
-                    <p className="text-gray-600 text-sm">{plan.description}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex justify-end gap-3 sticky bottom-6">
-                <button
-                  onClick={() => window.history.back()}
-                  className="px-8 py-3 bg-white border border-gray-300 rounded-md text-gray-700 font-medium hover:bg-gray-50 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => handleSelectPlan(selectedPlan)}
-                  disabled={!selectedPlan}
-                  className={`px-8 py-3 rounded-md font-medium transition-colors ${
-                    selectedPlan
-                      ? 'bg-amber-800 text-white hover:bg-amber-900 shadow-lg'
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  }`}
-                >
-                  Assign Plan
-                </button>
-              </div>
+                    Assign Plan
+                  </button>
+                </div>
+              )}
             </div>
           </main>
         </div>
 
         <Footer />
 
-        {/* Tenant Form */}
         {showTenantForm && (
           <TenantForm
             selectedPlan={selectedPlan}
