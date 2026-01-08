@@ -3,6 +3,19 @@ import { Helmet } from 'react-helmet';
 import Header from "../components/header"
 import Footer from "../components/Footer"
 
+const BILLING_CYCLE_MAP = {
+  1: 'Monthly',
+  3: 'Quarterly',
+  12: 'Annual',
+};
+
+const PLAN_TYPE_MAP = {
+  1: 'Prepaid',
+  2: 'Postpaid',
+  3: 'Conversation',
+  4: 'Offer',
+};
+
 const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
   const [formData, setFormData] = useState({
     botAgent: 'Jio',
@@ -15,6 +28,7 @@ const TenantForm = ({ selectedPlan, onBack, onSubmit }) => {
     billingCategory: '',
     useCase: ''
   });
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -357,38 +371,30 @@ export default function PlansPage() {
       }
     };
 
-    const processPlansData = (data) => {
-      let formattedPlans = [];
-      
-      if (data.Entities && Array.isArray(data.Entities)) {
-        formattedPlans = data.Entities.map(plan => ({
-          id: plan.PlanId || plan.Id,
-          name: plan.PlanName || plan.Name,
-          price: plan.Price || plan.BasePrice || plan.DisplayPrice || 0,
-          period: `/${plan.BillingCycle || 'month'}`,
-          description: plan.Description || 'No description available',
-          type: plan.Type || 'general',
-          billingCycle: plan.BillingCycle || 'Monthly',
-          features: plan.Features || '',
-          status: plan.Status
-        }));
-      } else if (Array.isArray(data)) {
-        formattedPlans = data.map(plan => ({
-          id: plan.PlanId || plan.Id,
-          name: plan.PlanName || plan.Name,
-          price: plan.Price || plan.BasePrice || plan.DisplayPrice || 0,
-          period: `/${plan.BillingCycle || 'month'}`,
-          description: plan.Description || 'No description available',
-          type: plan.Type || 'general',
-          billingCycle: plan.BillingCycle || 'Monthly',
-          features: plan.Features || '',
-          status: plan.Status
-        }));
-      }
-      
-      setPlans(formattedPlans);
-      setError(null);
-    };
+   const processPlansData = (data) => {
+  if (!data?.Entities) {
+    setPlans([]);
+    return;
+  }
+
+  const formattedPlans = data.Entities
+    .filter(plan => plan.IsActive && plan.IsPublic) 
+    .map(plan => ({
+      id: plan.PlanId,
+      name: plan.PlanName,
+      price: plan.DisplayPrice ?? plan.BasePrice ?? 0,
+      period: `/${BILLING_CYCLE_MAP[plan.BillingCycle] || 'Monthly'}`,
+      description: plan.Description || 'No description available',
+      billingCycle: BILLING_CYCLE_MAP[plan.BillingCycle], 
+      type: PLAN_TYPE_MAP[plan.PlanType],                
+      currency: plan.Currency || '₹',
+      badgeText: plan.BadgeText || '',
+      badgeColor: plan.BadgeColor || '',
+    }));
+
+  setPlans(formattedPlans);
+};
+
 
     fetchPlans();
   }, []);
