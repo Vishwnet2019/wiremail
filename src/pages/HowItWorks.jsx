@@ -65,7 +65,7 @@ export default function HowItWorksPage() {
         <section 
           className="py-16 md:py-20 bg-cover bg-center text-white"
           style={{
-            backgroundImage: 'url(https://wiremail.in/images/wiremail-images/background-header-image.png)',
+            backgroundImage: 'url(/images/wiremail-images/background-header-image.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
@@ -84,7 +84,7 @@ export default function HowItWorksPage() {
             </p>
 
             <div className="mb-8 flex justify-center">
-              <img src="https://wiremail.in/images/wiremail-images/wiremail-working.webp" alt="Wiremail Working" className="w-full max-w-full rounded-lg shadow-lg" />
+              <img src="/images/wiremail-images/wiremail-working.webp" alt="Wiremail Working" className="w-full max-w-full rounded-lg shadow-lg" />
             </div>
 
             {/* Features Grid */}

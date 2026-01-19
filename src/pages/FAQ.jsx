@@ -55,7 +55,7 @@ export default function FAQPage() {
         <section 
           className="py-16 md:py-20 bg-cover bg-center text-white"
           style={{
-            backgroundImage: 'url(https://wiremail.in/images/wiremail-images/background-header-image.png)',
+            backgroundImage: 'url(/images/wiremail-images/background-header-image.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}

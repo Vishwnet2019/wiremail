@@ -34,11 +34,11 @@ export default function ContactPage() {
             {/* Hero Banner Section */}
             <section
                 className="py-16 md:py-20 bg-cover bg-center text-white"
-                style={{
-                    backgroundImage: 'url(https://wiremail.in/images/wiremail-images/background-header-image.png)',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                }}
+                 style={{
+                        backgroundImage: 'url(/images/wiremail-images/background-header-image.png)',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                    }}
             >
                 <div className="container mx-auto px-4 md:px-6 lg:px-12">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mt-8">
@@ -99,9 +99,9 @@ export default function ContactPage() {
                                         <div>
                                             <label htmlFor="phone" className="block text-sm font-semibold text-gray-900 mb-2">Contact Details</label>
                                             <div className="flex gap-2">
-                                                <select className="px-3 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-600 text-gray-900 transition">
+                                                {/* <select className="px-3 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-indigo-600 text-gray-900 transition">
                                                     <option sele>+91</option>
-                                                </select>
+                                                </select> */}
                                                 <input
                                                     id="phone"
                                                     name="phone"

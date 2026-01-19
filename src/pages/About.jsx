@@ -44,7 +44,7 @@ export default function AboutPage() {
         <section 
           className="py-16 md:py-20 bg-cover bg-center text-white"
           style={{
-            backgroundImage: 'url(https://wiremail.in/images/wiremail-images/background-header-image.png)',
+            backgroundImage: 'url(/images/wiremail-images/background-header-image.png)',
             backgroundSize: 'cover',
             backgroundPosition: 'center'
           }}
@@ -66,7 +66,7 @@ export default function AboutPage() {
             {/* Image Section */}
             <div className="mb-12 flex justify-center">
               <img
-                src="https://wiremail.in/images/wiremail-images/wiremail-message-image.png"
+                src="/images/wiremail-images/wiremail-message-image.png"
                 alt="Wiremail Message Platform"
                 className="w-full max-w-full rounded-lg shadow-lg"
               />
