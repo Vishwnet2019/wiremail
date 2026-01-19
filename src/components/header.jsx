@@ -25,7 +25,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
             <img
-              src="https://wiremail.in/images/logo-wiremail/wiremail-logo.png"
+             src="/images/logo-wiremail/wiremail-logo.png"
               alt="Wiremail Logo"
               className="h-12 md:h-16 w-auto object-contain"
             />

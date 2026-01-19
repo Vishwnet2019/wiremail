@@ -31,11 +31,11 @@ export default function HomePage() {
     ];
 
     const trustedLogos = [
-        { src: 'https://wiremail.in/images/logo-wiremail/logo1.png', alt: 'CarePay' },
-        { src: 'https://wiremail.in/images/logo-wiremail/logo3.png', alt: 'Community Health' },
-        { src: 'https://wiremail.in/images/logo-wiremail/logo4.png', alt: 'PayCare' },
-        { src: 'https://wiremail.in/images/logos/policy.png', alt: 'Policy.online' },
-        { src: 'https://wiremail.in/images/logo-wiremail/logo2.webp', alt: 'eSign.Digital' }
+        { src: '/images/logo-wiremail/logo1.png', alt: 'CarePay' },
+        { src: '/images/logo-wiremail/logo3.png', alt: 'Community Health' },
+        { src: '/images/logo-wiremail/logo4.png', alt: 'PayCare' },
+        { src: '/images/logos/policy.png', alt: 'Policy.online' },
+        { src: '/images/logo-wiremail/logo2.webp', alt: 'eSign.Digital' }
     ];
 
     return (
@@ -127,7 +127,7 @@ export default function HomePage() {
                         <div className="mb-8">
                             <div className="relative bg-white rounded-lg overflow-hidden shadow-md">
                                 <img
-                                    src="https://wiremail.in/images/banner/omnichannel.webp"
+                                    src="/images/banner/omnichannel.webp"
                                     alt="Omnichannel Communication"
                                     className="w-full h-auto object-cover"
                                 />
@@ -218,7 +218,7 @@ export default function HomePage() {
                     </div>
                 </section>
                 <RcsDashboard />
-                <Backend />
+                {/* <Backend /> */}
 
                 {/* Omnichannel vs Multichannel Section */}
                 <section className="py-16 md:py-24 bg-gray-50">
@@ -227,7 +227,7 @@ export default function HomePage() {
                             {/* Image */}
                             <div className="order-2 lg:order-1">
                                 <img
-                                    src="https://wiremail.in/images/banner/omnichannel-vs-multichannel.webp"
+                                    src="/images/banner/omnichannel-vs-multichannel.webp"
                                     alt="Omnichannel vs Multichannel"
                                     className="w-full rounded-lg shadow-lg"
                                 />
@@ -269,7 +269,7 @@ export default function HomePage() {
                 <section className="py-12 md:py-16 bg-gradient-to-r from-purple-500 to-purple-600">
                     <div className="container mx-auto px-4 md:px-6 lg:px-12">
                         <img
-                            src="https://wiremail.in/images/banner/omnichannel-working.png"
+                            src="/images/banner/omnichannel-working.png"
                             alt="Seamless Omnichannel Communication With Wiremail"
                             className="w-full rounded-lg shadow-lg"
                         />
