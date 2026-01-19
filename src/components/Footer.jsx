@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="lg:col-span-4">
             <Link to="/">
               <img
-                src="https://wiremail.in/images/logo-wiremail/wiremail-logo.png"
+                src="/images/logo-wiremail/wiremail-logo.png"
                 alt="Wiremail Logo"
                 className="h-12 w-auto object-contain mb-4"
               />
