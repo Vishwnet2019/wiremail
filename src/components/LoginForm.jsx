@@ -50,7 +50,7 @@ export default function LoginForm() {
             <div className="w-full md:w-1/2 p-6 md:p-12">
               <div className="flex justify-center mb-6">
                 <img
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-Fl9bQC1OEr789Mbi8jcmzEfAd17qFh.png"
+                src="/images/logo-wiremail/wiremail.png"
                   alt="Wiremail Logo"
                   className="h-14 w-auto"
                 />
@@ -90,13 +90,13 @@ export default function LoginForm() {
                 </div>
 
                 <div className="flex justify-between items-center">
-                  <a href="#" className="text-sm text-purple-600 hover:text-purple-700 font-medium">Forgot password?</a>
+                  <a href="#" className="text-sm text-[#3f190b] hover:text-purple-700 font-medium">Forgot password?</a>
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-[#3f190b] from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 rounded-lg transition duration-200 ease-in-out transform hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Signing in...' : 'Sign In'}
                 </button>
@@ -113,7 +113,7 @@ export default function LoginForm() {
                 <button
                   type="button"
                   onClick={() => navigate('/register')}
-                  className="w-full text-purple-600 font-semibold py-3 rounded-lg border-2 border-purple-600 hover:bg-purple-50 transition duration-200"
+                  className="w-full text-[#3f190b] font-semibold py-3 rounded-lg border-2 border-[#3f190b] hover:bg-purple-50 transition duration-200"
                 >
                   Create Account
                 </button>

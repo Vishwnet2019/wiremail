@@ -10,13 +10,16 @@ export default function Footer() {
           {/* Brand / Intro (col-span 4) */}
           <div className="lg:col-span-4">
             <Link to="/">
-              <img
-                src="/images/logo-wiremail/wiremail-logo.png"
-                alt="Wiremail Logo"
-                className="h-12 w-auto object-contain mb-4"
-              />
+            <div className="bg-white px-2 " style={{borderRadius:"5px",width:"55%"}}>
+  <img
+    src="/images/logo-wiremail/wiremail-background.webp"
+    alt="Wiremail Logo"
+    className="max-h-full max-w-full object-contain"
+  />
+</div>
+
             </Link>
-            <p className="text-sm text-gray-300 leading-relaxed mb-6">
+            <p className="text-sm text-gray-300 leading-relaxed mb-6 mt-2">
               Wiremail — Secure, scalable omnichannel messaging for enterprises. SMS, WhatsApp, RCS, Email and Voice APIs with global reach and enterprise-grade delivery.
             </p>
 

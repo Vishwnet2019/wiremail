@@ -10,10 +10,10 @@ export default function Header() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
-    { name: 'How It Works', path: '/how-it-works' },
+    // { name: 'How It Works', path: '/how-it-works' },
     { name: 'Pricing', path: '/pricing' },
     { name: 'Partners', path: '/partners' },
-    { name: 'FAQ', path: '/faq' },
+    // { name: 'FAQ', path: '/faq' },
     { name: 'Integration', path: '/integration' },
     { name: 'Contact Us', path: '/contact' },
   ];
@@ -24,11 +24,13 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0">
+          <div  style={{borderRadius:"5px",width:"80%"}}>
             <img
-             src="/images/logo-wiremail/wiremail-logo.png"
+             src="/images/logo-wiremail/wiremail.png"
               alt="Wiremail Logo"
-              className="h-12 md:h-16 w-auto object-contain"
+              className=" md:h-16 w-auto object-contain"
             />
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
